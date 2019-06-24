@@ -5,7 +5,7 @@ var co2Amount = ["3.324719", "4.249225", "4.454463", "4.570283", "4.533582", "4.
 var trace1 = {
     x: year,
     y: co2Amount,
-    type: "bar"
+    type: "scatter"
 };
 
 var data = [trace1];
@@ -16,4 +16,4 @@ var layout = {
     yaxis: { title: "CO2 emissions (metric tons per capita)" }
 };
 
-Plotly.newPlot("bar-plot", data, layout);
+Plotly.newPlot("scatter-plot", data, layout);
