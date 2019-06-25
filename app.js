@@ -28,7 +28,7 @@ var chartGroup = svg.append("g")
 var parseYear = d3.timeParse("%B");
 
 // Load data from miles-walked-this-month.csv
-d3.csv("woroldCO2avg_df.csv", function(error, co2Data) {
+d3.csv("worldCO2avg_df.csv", function(error, co2Data) {
 
   // Throw an error if one occurs
   if (error) throw error;
@@ -39,7 +39,7 @@ d3.csv("woroldCO2avg_df.csv", function(error, co2Data) {
   // Format the date and cast the miles value to a number
   co2Data.forEach(function(data) {
     data.Year = parseYear(data.Year);
-    data."CO2 emissions (metric tons per capita)"= +data."CO2 emissions (metric tons per capita)";
+    data.CO2_emissions= +data.CO2_emissions;
   });
 
   // Configure a time scale with a range between 0 and the chartWidth
@@ -53,7 +53,7 @@ d3.csv("woroldCO2avg_df.csv", function(error, co2Data) {
   // Set the domain for the xLinearScale function
   var yLinearScale = d3.scaleLinear()
     .range([chartHeight, 0])
-    .domain([0, d3.max(co2Data, data => data."CO2 emissions (metric tons per capita)")]);
+    .domain([0, d3.max(co2Data, data => data.CO2_emissions)]);
 
   // Create two new functions passing the scales in as arguments
   // These will be used to create the chart's axes
@@ -64,7 +64,7 @@ d3.csv("woroldCO2avg_df.csv", function(error, co2Data) {
   var drawLine = d3
     .line()
     .x(data => xTimeScale(data.Year))
-    .y(data => yLinearScale(data."CO2 emissions (metric tons per capita)"));
+    .y(data => yLinearScale(data.CO2_emissions));
 
   // Append an SVG path and plot its points using the line function
   chartGroup.append("path")
